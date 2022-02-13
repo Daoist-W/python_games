@@ -1,4 +1,4 @@
-import time
+
 import turtle
 from Paddle import Paddle
 from Ball import Ball
@@ -38,22 +38,16 @@ if __name__ == '__main__':
         pong.sety(pong.ycor() + pong.dy)
 
         # Border checking
-        if pong.ycor() > 290 or pong.ycor() < -280:
-            pong.dy *= -1
+        border_check = pong.border_control()  # returns indication of which border the ball reached
+        if border_check == "top-bottom":
             winsound.PlaySound("../sounds/boing3.wav", winsound.SND_ASYNC)
 
-        if pong.xcor() > 400:
-            pong.setx(0)
-            pong.sety(0)
-            pong.dx *= -1
+        elif border_check == "left":
             score.player_A_lives -= 1
             score.clear()
             score.update()
 
-        if pong.xcor() < -400:
-            pong.setx(0)
-            pong.sety(0)
-            pong.dx *= -1
+        elif border_check == "right":
             score.player_B_lives -= 1
             score.clear()
             score.update()

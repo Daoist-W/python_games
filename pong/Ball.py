@@ -29,4 +29,18 @@ class Ball(turtle.Turtle):
                 return True
         return False
 
+    def border_control(self):
+        if self.ycor() > 290 or self.ycor() < -280:
+            self.dy *= -1
+            return "top-bottom"
+        elif self.xcor() > 400:  # if the ball crosses the right border, return "right"
+            self.setx(0)
+            self.sety(0)
+            self.dx *= -1
+            return "right"
 
+        elif self.xcor() < -400:  # if the ball crosses the left border, return "left"
+            self.setx(0)
+            self.sety(0)
+            self.dx *= -1
+            return "left"
