@@ -28,6 +28,7 @@ if __name__ == '__main__':
     window.onkeypress(paddle_right.paddle_down, "5")
     window.onkeypress(paddle_left.paddle_up, "w")
     window.onkeypress(paddle_left.paddle_down, "s")
+    window.onkeypress(window.bye, "x")
 
     # Main game loop
     while True:
@@ -44,11 +45,15 @@ if __name__ == '__main__':
 
         elif border_check == "left":
             score.player_A_lives -= 1
+            paddle_left.velocity += 0.1
+            pong.velocity += 0.1
             score.clear()
             score.update()
 
         elif border_check == "right":
             score.player_B_lives -= 1
+            paddle_right.velocity += 0.1
+            pong.velocity += 0.1
             score.clear()
             score.update()
 
@@ -70,5 +75,10 @@ if __name__ == '__main__':
             paddle_left.auto_track(pong)
             paddle_right.auto_track(pong)
 
-        if score.player_A_lives <= 0 or score.player_B_lives <= 0:
+        if score.player_A_lives <= 0:
+            print("Player B WINS!")
+            break
+
+        elif score.player_B_lives <= 0:
+            print("Player A WINS!")
             break

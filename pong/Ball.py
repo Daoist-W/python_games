@@ -5,12 +5,13 @@ import random
 class Ball(turtle.Turtle):
     sign_x = [-1, 1][random.randrange(2)]
     sign_y = [-1, 1][random.randrange(2)]
-    dx = 0.4 * sign_x
-    dy = 0.4 * sign_y
+    velocity = 0.4
+    dx = velocity * sign_x
+    dy = velocity * sign_y
 
     def __init__(self):
         super(Ball, self).__init__()
-        self.shape("square")
+        self.shape("turtle")
         self.speed(0)
         self.shapesize(stretch_wid=1, stretch_len=1)
         self.color("white")

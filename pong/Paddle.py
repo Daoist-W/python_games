@@ -3,7 +3,7 @@ import turtle
 
 class Paddle(turtle.Turtle):
     lives = 3
-    delay = 1
+    velocity = 0.25
 
     def __init__(self, position):
         super(Paddle, self).__init__()
@@ -30,13 +30,13 @@ class Paddle(turtle.Turtle):
         # automated tracking
         if pong.xcor() < 0 and self.xcor() < 0:
             if self.ycor() > pong.ycor():
-                self.sety(self.ycor() - 0.2)
+                self.sety(self.ycor() - self.velocity)
             else:
-                self.sety(self.ycor() + 0.2)
+                self.sety(self.ycor() + self.velocity)
 
         if pong.xcor() > 0 and self.xcor() > 0:
             if self.ycor() > pong.ycor():
-                self.sety(self.ycor() - 0.2)
+                self.sety(self.ycor() - self.velocity)
             else:
-                self.sety(self.ycor() + 0.2)
+                self.sety(self.ycor() + self.velocity)
 

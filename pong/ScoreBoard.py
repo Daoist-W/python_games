@@ -14,14 +14,14 @@ class ScoreBoard(Turtle):
         self.hideturtle()
         self.goto(0, 260)
         self.write(
-            "Player 1: {} VS Player 2: {}".format(self.player_A_lives, self.player_B_lives),
+            "Player A: {} VS Player B: {}".format(self.player_A_lives, self.player_B_lives),
             font=self.style,
             align="center"
         )
 
     def update(self):
         self.write(
-            "Player 1: {} VS Player 2: {}".format(self.player_A_lives, self.player_B_lives),
+            "Player A: {} VS Player B: {}".format(self.player_A_lives, self.player_B_lives),
             font=self.style,
             align="center"
         )
