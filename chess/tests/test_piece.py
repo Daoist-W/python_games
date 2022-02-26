@@ -1,23 +1,30 @@
 # this file contains tests for the piece.py file
 import pytest
-from chess import piece
+from chess.piece import Pawn
 
 
 def test_position():
-    p = piece.Piece("P", "a", 1)
+    p = Pawn("a", 1)
     assert p.curr_position == (0, 1)
 
 
 def test_position_invalid_row():
     with pytest.raises(Exception) as e_info:
-        p = piece.Piece("P", "a", 10)
+        p = Pawn("a", 10)
 
 
 def test_position_invalid_column():
     with pytest.raises(Exception) as e_info:
-        p = piece.Piece("P", "p", 1)
+        p = Pawn("p", 1)
 
 
-def test_more():
-    # TODO: implement me!
-    pass
+def test_valid_move():
+    p = Pawn("a", 1)
+    assert p.validate_move("a", 2) is True
+
+
+def test_invalid_move():
+    p = Pawn("a", 1)
+    assert p.validate_move("a", 3) is False
+
+
