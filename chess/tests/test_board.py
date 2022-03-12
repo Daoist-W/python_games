@@ -1,6 +1,5 @@
 
 # this will test the board class
-import pytest
 from chess import board
 
 

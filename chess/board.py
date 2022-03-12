@@ -1,24 +1,15 @@
-from pprint import pprint
+import os
+
+from chess.colors import colors
 from chess.piece import Pawn, Rook, Knight, Bishop, King, Queen
 
 import time
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 # this class will represent the chess board
 # it will contain a 2D array with chess pieces
 
 class Board:
-
     _cood1 = {
         'a': 0,
         'b': 1,
@@ -37,7 +28,7 @@ class Board:
     def run(self):
         # handle user input, passing on the commands to relevant objects/methods
         # will continuously listen with a while loop until user enters exit or cancels
-
+        os.system('cls')
         print()
         print("Terminal Based Chess Game (Python) v1.0")
         print()
@@ -45,13 +36,20 @@ class Board:
         self.display()
         print()
         while True:
-            command = input("Enter your move (a-h,1-8) (a-h,1-8) e.g. a1 a2: ")
+            # TODO: Exception handling for incorrect input
+            command = input(
+                "Enter your move ([a-h][0-7]) e.g. a1 a2: "
+                "\n'exit' to end game"
+                "\n'history' to view past moves"
+                "\n-> "
+            )
             print()
             if command == 'exit':
                 print("exiting...")
                 print()
                 break
 
+            # TODO: Prevent anything that isn't valid input from passing here
             move = command.split(" ")
             current_pos = move[0][0], int(move[0][1])
             next_pos = move[1][0], int(move[1][1])
@@ -61,18 +59,18 @@ class Board:
             else:
                 print("Invalid position, there are no pieces at this location")
                 print()
+                time.sleep(2)
             self.refresh()
 
     def get_piece(self, current_pos):
         # order of coordinates needs to be swapped due the rows representing numbers, not letters
         # [1-7][a-h]
         print(current_pos[0], current_pos[1])
-        if current_pos[0] in self._cood1 and current_pos[1] in range(7):
+        if current_pos[0] in self._cood1 and current_pos[1] in range(8):
             return self.chessboard[current_pos[1]][self._cood1[f"{current_pos[0]}"]]
         else:
             print("invalid position")
             return " "
-
 
     # method to set up the board
     def set_up(self):
@@ -109,10 +107,14 @@ class Board:
 
     # method to print the current state of the board
     def display(self):
+        os.system('cls')
+        print()
+        print("Terminal Based Chess Game (Python) v1.0")
+        print()
         i = 0
         for row in self.chessboard:
             print()
-            print(bcolors.WARNING, f"{i}", bcolors.ENDC, sep="", end=" ")
+            print(colors.WARNING, f"{i}", colors.ENDC, sep="", end=" ")
             i += 1
             for element in row:
                 print("{:^4}|".format(element.__str__()), end=" ")
@@ -120,7 +122,9 @@ class Board:
         print()
         print(" ", end=" ")
         for element in self._cood1.keys():
-                print(bcolors.WARNING, "{:^4} ".format(element), sep="", end=" ")
+            print(colors.WARNING, "{:^4} ".format(element), colors.ENDC, sep="", end=" ")
+        print()
+        print()
 
     def refresh(self):
         # create a copy array and loop through the old one, continually shifting the
@@ -143,4 +147,3 @@ board = Board()
 board.set_up()
 
 board.run()
-
