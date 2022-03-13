@@ -46,6 +46,14 @@ class Piece(metaclass=ABCMeta):
     def curr_position(self):
         return self._curr_position
 
+    @property
+    def colour(self):
+        return self._colour
+
+    @property
+    def type(self):
+        return self._piece_type
+
     @curr_position.setter
     def curr_position(self, curr_position: tuple):
         # This will only be called if move has been validated by Piece instance and
@@ -74,7 +82,6 @@ class Pawn(Piece):
         # if c1 and c1 are valid, return true, else return false
         if c1 in self._cood1 and c2 in self._cood2:
             # list of possible moves that can be taken by this piece
-            # TODO: need to create different possible moves depending on player/color
             if self._colour == 'White':
                 possible_moves = [
                     (self._curr_position[0], self._curr_position[1] + 1),
@@ -96,11 +103,8 @@ class Pawn(Piece):
             int_to_str = (list(self._cood1.keys())[list(self._cood1.values()).index(self.curr_position[0])])
 
             if (self._cood1[f"{c1}"], self._cood2[c2]) in valid_moves:
-                # fudge to get the value of a key from the number, I need to change that to enumaration
+                # fudge to get the value of a key from the number, I need to change that to enumeration
                 # TODO: change cood1 to enum
-                print(f"{self.__repr__()} "
-                      f"{int_to_str, self.curr_position[1]} "
-                      f"to {c1, c2} is a valid move!")
                 return True
             else:
                 print(self._curr_position)
@@ -122,7 +126,6 @@ class Rook(Piece):
         # if c1 and c1 are valid, return true, else return false
         if c1 in self._cood1 and c2 in self._cood2:
             # list of possible moves that can be taken by this piece
-            # TODO: test me!!
             horizontal_moves = [(i, self._curr_position[1]) for i in range(7)]
             vertical_moves = [(self._curr_position[0], j) for j in range(7)]
             possible_moves = horizontal_moves + vertical_moves
@@ -133,8 +136,6 @@ class Rook(Piece):
                            move[1] in self._cood2]
 
             if (self._cood1[f"{c1}"], self._cood2[c2]) in valid_moves:
-                print(self._curr_position)
-                print(f"{c1, c2} is a valid move!")
                 return True
             else:
                 print(self._curr_position)
@@ -166,8 +167,6 @@ class Bishop(Piece):
                            move[1] in self._cood2]
 
             if (self._cood1[f"{c1}"], self._cood2[c2]) in valid_moves:
-                print(self._curr_position)
-                print(f"{c1, c2} is a valid move!")
                 return True
             else:
                 print(self._curr_position)
@@ -187,12 +186,15 @@ class Knight(Piece):
         # if c1 and c1 are valid, return true, else return false
         if c1 in self._cood1 and c2 in self._cood2:
             # list of possible moves that can be taken by this piece
-            # TODO: implement me!!
             possible_moves = [
                 (self._curr_position[0] + 1, self._curr_position[1] + 2),
                 (self._curr_position[0] - 1, self._curr_position[1] + 2),
                 (self._curr_position[0] + 1, self._curr_position[1] - 2),
                 (self._curr_position[0] - 1, self._curr_position[1] - 2),
+                (self._curr_position[0] + 2, self._curr_position[1] + 1),
+                (self._curr_position[0] - 2, self._curr_position[1] + 1),
+                (self._curr_position[0] + 2, self._curr_position[1] - 1),
+                (self._curr_position[0] - 2, self._curr_position[1] - 1),
             ]
 
             # filter out these moves to eliminate off-board positions
@@ -201,8 +203,6 @@ class Knight(Piece):
                            move[1] in self._cood2]
 
             if (self._cood1[f"{c1}"], self._cood2[c2]) in valid_moves:
-                print(self._curr_position)
-                print(f"{c1, c2} is a valid move!")
                 return True
             else:
                 print(self._curr_position)
@@ -222,7 +222,6 @@ class King(Piece):
         # if c1 and c1 are valid, return true, else return false
         if c1 in self._cood1 and c2 in self._cood2:
             # list of possible moves that can be taken by this piece
-            # TODO: implement me!!
             possible_moves = [
                 (self._curr_position[0] + 1, self._curr_position[1] + 1),
                 (self._curr_position[0] - 1, self._curr_position[1] + 1),
@@ -240,8 +239,6 @@ class King(Piece):
                            move[1] in self._cood2]
 
             if (self._cood1[f"{c1}"], self._cood2[c2]) in valid_moves:
-                print(self._curr_position)
-                print(f"{c1, c2} is a valid move!")
                 return True
             else:
                 print(self._curr_position)
@@ -261,7 +258,6 @@ class Queen(Piece):
         # if c1 and c1 are valid, return true, else return false
         if c1 in self._cood1 and c2 in self._cood2:
             # list of possible moves that can be taken by this piece
-            # TODO: implement me!!
             horizontal_moves = [(i, self._curr_position[1]) for i in range(7)]
             vertical_moves = [(self._curr_position[0], j) for j in range(7)]
             diagonal_moves1 = [(self._curr_position[0] + i, self._curr_position[1] + i) for i in range(7)]
@@ -277,8 +273,6 @@ class Queen(Piece):
                            move[1] in self._cood2]
 
             if (self._cood1[f"{c1}"], self._cood2[c2]) in valid_moves:
-                print(self._curr_position)
-                print(f"{c1, c2} is a valid move!")
                 return True
             else:
                 print(self._curr_position)

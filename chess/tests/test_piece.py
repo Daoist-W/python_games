@@ -2,6 +2,8 @@
 import pytest
 from chess.piece import Pawn
 
+# TODO: Testing pieces
+
 
 def test_position():
     p = Pawn("a", 1, "Black")
@@ -28,3 +30,24 @@ def test_invalid_move():
     assert p.validate_move("a", 3) is False
 
 
+class TestPiece:
+    def test_piece(self):
+        assert False
+
+    def test_pawn(self):
+        assert False
+
+    def test_rook(self):
+        assert False
+
+    def test_bishop(self):
+        assert False
+
+    def test_knight(self):
+        assert False
+
+    def test_king(self):
+        assert False
+
+    def test_queen(self):
+        assert False
